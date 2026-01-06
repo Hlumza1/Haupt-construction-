@@ -1,0 +1,7 @@
+{
+  "name": "Hauptcon (Pty) Ltd",
+  "description": "Leading South African civil engineering and building construction firm established in 1982. Specializing in large-scale infrastructure and industrial projects.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
