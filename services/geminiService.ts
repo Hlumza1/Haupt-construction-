@@ -1,5 +1,4 @@
-
-import { GoogleGenAI, Chat } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 
 const SYSTEM_INSTRUCTION = `
 You are the "Hauptcon AI Consultant", representing Hauptcon (Pty) Ltd, a prominent South African construction company established in 1982.
@@ -17,9 +16,10 @@ Always emphasize Hauptcon's pillars: Quality, Safety, and Timely Delivery. If as
 
 export class GeminiService {
   private ai: GoogleGenAI;
-  private chat: Chat;
+  private chat: any;
 
   constructor() {
+    // Standard initialization per @google/genai guidelines
     this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     this.chat = this.ai.chats.create({
       model: 'gemini-3-flash-preview',
@@ -32,7 +32,7 @@ export class GeminiService {
 
   async sendMessage(message: string) {
     try {
-      const response = await this.chat.sendMessage({ message });
+      const response = await this.chat.sendMessage({ message: message });
       return response.text ?? "";
     } catch (error) {
       console.error("Gemini API Error:", error);
@@ -42,7 +42,7 @@ export class GeminiService {
 
   async *sendMessageStream(message: string) {
     try {
-      const stream = await this.chat.sendMessageStream({ message });
+      const stream = await this.chat.sendMessageStream({ message: message });
       for await (const chunk of stream) {
         yield chunk.text ?? "";
       }

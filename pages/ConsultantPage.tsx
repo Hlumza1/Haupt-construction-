@@ -1,7 +1,6 @@
-
 import React, { useState, useRef, useEffect } from 'react';
-import { GeminiService } from '../services/geminiService';
-import { ChatMessage } from '../types';
+import { GeminiService } from '../services/geminiService.ts';
+import { ChatMessage } from '../types.ts';
 
 const ConsultantPage: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -153,14 +152,17 @@ const ConsultantPage: React.FC = () => {
                       : 'bg-zinc-800/40 backdrop-blur-md border border-white/5 text-zinc-200 rounded-tl-none'
                   }`}>
                     <div className="text-sm leading-relaxed prose prose-invert max-w-none">
-                      {msg.parts || (isLoading && idx === messages.length - 1 ? (
-                        <div className="flex space-x-1 py-2">
-                          <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" />
-                          <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                          <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                        </div>
-                      ) : null)}
-                      {msg.parts}
+                      {msg.parts ? (
+                        msg.parts
+                      ) : (
+                        isLoading && idx === messages.length - 1 && (
+                          <div className="flex space-x-1 py-2">
+                            <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" />
+                            <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                            <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                          </div>
+                        )
+                      )}
                     </div>
                   </div>
                   <span className="text-[10px] mt-2 font-bold uppercase tracking-widest text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity">
